@@ -1,4 +1,6 @@
-# Backend
+# Investment-Backed Credit Card
+
+## Backend
 
 .NET 8 API for the investment card demo.
 
@@ -11,7 +13,7 @@ dotnet run --project src/InvestmentCard.Api
 
 In-memory EF + Hangfire. Three customers get seeded on startup; everything resets when you restart.
 
-## Layout
+### Layout
 
 - `Domain` – entities / rules (`Portfolio`, `CreditCard`, etc.)
 - `Application` – MediatR handlers
@@ -22,3 +24,15 @@ Credit limit is lien × advance rate (Basic 50% / Plus 70% / Premium 90%).
 Domain exceptions come back as 422 with a `code` field.
 
 Delinquency job runs on the cron in config (`Delinquency:ThresholdMinutes`, default 2 min for the demo).
+
+## Frontend
+
+Angular app under `frontend/`.
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Opens at http://localhost:4200 and proxies `/api` to the backend.

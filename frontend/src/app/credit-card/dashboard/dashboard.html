@@ -1,0 +1,31 @@
+<section class="card">
+  <div class="row" style="justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+    <div style="min-width: 260px;">
+      <label for="customer">Customer</label>
+      <select id="customer" [formControl]="customerCtrl">
+        @for (c of customers; track c.id) {
+          <option [value]="c.id">{{ c.fullName }}</option>
+        }
+      </select>
+    </div>
+    <div style="text-align: right;">
+      <button class="secondary" (click)="runDelinquencyCheck()" [disabled]="jobRunning">
+        {{ jobRunning ? 'Running…' : 'Run delinquency check now' }}
+      </button>
+      <div class="hint">Also runs automatically every 60 minutes via Hangfire.</div>
+    </div>
+  </div>
+  @if (jobMessage) { <div class="alert ok">{{ jobMessage }}</div> }
+  @if (loadError) { <div class="alert err">{{ loadError }}</div> }
+</section>
+
+<app-portfolio-list [portfolios]="portfolios" />
+
+<div class="grid-2">
+  <app-issue-card-form [customerId]="customerId" [portfolios]="portfolios" (issued)="refresh()" />
+  <app-redeem-form [portfolios]="portfolios" (redeemed)="refresh()" />
+</div>
+
+<app-card-list [cards]="cards" (changed)="refresh()" />
+
+<app-audit-trail [entries]="audit" />

@@ -1,0 +1,32 @@
+<section class="card">
+  <h2>Portfolios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th class="num">Total value</th>
+        <th class="num">Liened</th>
+        <th class="num">Available</th>
+        <th class="num">Credit advance rate</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of portfolios; track p.id) {
+        <tr>
+          <td><strong>{{ p.type }}</strong></td>
+          <td class="num">{{ p.totalValue | number: '1.2-2' }}</td>
+          <td class="num">{{ p.lienAmount | number: '1.2-2' }}</td>
+          <td class="num">{{ p.availableValue | number: '1.2-2' }}</td>
+          <td class="num">{{ p.advanceRate | percent }}</td>
+          <td>
+            @if (p.isFrozen) { <span class="badge Frozen">Frozen</span> }
+            @else { <span class="badge Active">Active</span> }
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="6" class="muted">No portfolios.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

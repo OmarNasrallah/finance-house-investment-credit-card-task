@@ -1,0 +1,43 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #f4f6f9; color: #1d2733;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px;
+}
+h2 { font-size: 16px; margin: 0 0 12px; }
+.card { background: #fff; border: 1px solid #dfe5ec; border-radius: 8px; padding: 18px 20px; margin-bottom: 20px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #edf0f4; vertical-align: middle; }
+th { font-size: 12px; color: #5b6b7c; font-weight: 600; text-transform: uppercase; letter-spacing: .3px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+label { display: block; font-size: 12px; color: #5b6b7c; margin-bottom: 4px; }
+input, select {
+  width: 100%; padding: 8px 10px; border: 1px solid #c9d3de; border-radius: 6px; font: inherit; background: #fff;
+}
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched { border-color: #c0392b; }
+.field { margin-bottom: 12px; }
+.row { display: flex; gap: 8px; align-items: center; }
+button {
+  padding: 8px 14px; border: 1px solid #1f5c99; background: #1f5c99; color: #fff;
+  border-radius: 6px; font: inherit; cursor: pointer; white-space: nowrap;
+}
+button.secondary { background: #fff; color: #1f5c99; }
+button.danger { background: #fff; color: #b03a2e; border-color: #b03a2e; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.hint { font-size: 12px; color: #5b6b7c; margin-top: 4px; }
+.error { color: #b03a2e; font-size: 12px; margin-top: 4px; }
+.alert { padding: 10px 12px; border-radius: 6px; margin-top: 12px; font-size: 13px; }
+.alert.err { background: #fdecea; color: #8a2a20; border: 1px solid #f5c6c0; }
+.alert.ok { background: #e8f5ec; color: #1e6b3a; border: 1px solid #bfe3cb; }
+.alert code { font-size: 11px; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 4px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.badge.Active { background: #e8f5ec; color: #1e6b3a; }
+.badge.Delinquent { background: #fdecea; color: #8a2a20; }
+.badge.Blocked, .badge.Frozen { background: #fff4e0; color: #8a5a00; }
+.badge.Closed { background: #edf0f4; color: #5b6b7c; }
+.badge.risk { background: #fff4e0; color: #8a5a00; margin-left: 6px; }
+.bar { height: 6px; background: #edf0f4; border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.bar > span { display: block; height: 100%; background: #1f5c99; }
+.bar > span.full { background: #c0392b; }
+.muted { color: #5b6b7c; }

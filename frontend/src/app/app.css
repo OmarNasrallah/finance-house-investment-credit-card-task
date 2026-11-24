@@ -1,0 +1,7 @@
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 32px; background: #0f2a43; color: #fff;
+}
+.brand { font-weight: 600; font-size: 17px; letter-spacing: .2px; }
+.topbar .muted { color: #b9cde0; font-size: 13px; text-decoration: none; }
+.container { max-width: 1180px; margin: 0 auto; padding: 24px 32px 48px; }

@@ -1,0 +1,43 @@
+<section class="card">
+  <h2>Issue credit card</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field">
+      <label for="issue-portfolio">Portfolio (collateral)</label>
+      <select id="issue-portfolio" formControlName="portfolioId">
+        <option value="" disabled>Select a portfolio…</option>
+        @for (p of portfolios; track p.id) {
+          <option [value]="p.id">
+            {{ p.type }}: available {{ p.availableValue | number: '1.2-2' }}{{ p.isFrozen ? ' (frozen)' : '' }}
+          </option>
+        }
+      </select>
+      @if (form.controls.portfolioId.touched && form.controls.portfolioId.invalid) {
+        <div class="error">Select a portfolio.</div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="issue-lien">Lien amount</label>
+      <input id="issue-lien" type="number" min="0" step="0.01" formControlName="lienAmount" />
+      @if (form.controls.lienAmount.touched && form.controls.lienAmount.invalid) {
+        <div class="error">Enter an amount greater than zero.</div>
+      }
+      @if (exceedsAvailable) {
+        <div class="hint">⚠ More than the available value; the API will reject this.</div>
+      }
+      @if (previewLimit !== null) {
+        <div class="hint">
+          Credit limit will be <strong>{{ previewLimit | number: '1.2-2' }}</strong>
+          ({{ selected!.advanceRate | percent }} of lien for {{ selected!.type }}).
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="submitting">{{ submitting ? 'Issuing…' : 'Place lien & issue card' }}</button>
+  </form>
+
+  @if (error) {
+    <div class="alert err">{{ error.message }} @if (error.code) { <code>{{ error.code }}</code> }</div>
+  }
+  @if (success) { <div class="alert ok">{{ success }}</div> }
+</section>

@@ -1,0 +1,56 @@
+<section class="card">
+  <h2>Credit cards</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Card</th>
+        <th>Backed by</th>
+        <th class="num">Limit</th>
+        <th style="width: 190px;">Utilized</th>
+        <th>Status</th>
+        <th style="width: 330px;">Simulate</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (c of cards; track c.id) {
+        <tr>
+          <td><code>{{ c.maskedCardNumber }}</code></td>
+          <td>{{ c.portfolioType }}</td>
+          <td class="num">{{ c.creditLimit | number: '1.2-2' }}</td>
+          <td>
+            {{ c.utilizedAmount | number: '1.2-2' }}
+            <span class="muted">· avail {{ c.availableCredit | number: '1.2-2' }}</span>
+            <div class="bar"><span [style.width.%]="utilizationPct(c)" [class.full]="c.isAtRisk"></span></div>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="c.status">{{ c.status }}</span>
+            @if (c.isAtRisk && c.status === 'Active') {
+              <span class="badge risk" [title]="'Fully utilized since ' + (c.fullyUtilizedSinceUtc | date: 'medium')">At risk</span>
+            }
+          </td>
+          <td>
+            @if (c.status !== 'Closed') {
+              <div class="row">
+                <input type="number" min="0" step="0.01" placeholder="Amount" style="width: 100px;"
+                       [formControl]="amountCtrl(c.id)" />
+                <button (click)="charge(c)" [disabled]="busy[c.id]">Use</button>
+                <button class="secondary" (click)="repay(c)" [disabled]="busy[c.id]">Repay</button>
+                <button class="danger" (click)="close(c)" [disabled]="busy[c.id]">Close</button>
+              </div>
+              @if (amountCtrl(c.id).touched && amountCtrl(c.id).invalid) {
+                <div class="error">Enter an amount greater than zero.</div>
+              }
+            } @else {
+              <span class="muted">Lien released</span>
+            }
+            @if (errors[c.id]; as err) {
+              <div class="error">{{ err.message }} @if (err.code) { <code>{{ err.code }}</code> }</div>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="6" class="muted">No cards yet. Issue one above.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,21 @@
+<section class="card">
+  <h2>Audit trail <span class="muted" style="font-weight: 400;">(latest 50)</span></h2>
+  <table>
+    <thead>
+      <tr><th>Time</th><th>Entity</th><th>Action</th><th class="num">Amount</th><th>Details</th></tr>
+    </thead>
+    <tbody>
+      @for (a of entries; track $index) {
+        <tr>
+          <td class="muted">{{ a.timestampUtc | date: 'MMM d, HH:mm:ss' }}</td>
+          <td>{{ a.entityType }}</td>
+          <td><strong>{{ a.action }}</strong></td>
+          <td class="num">{{ a.amount === null ? '—' : (a.amount | number: '1.2-2') }}</td>
+          <td>{{ a.details }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5" class="muted">No activity yet.</td></tr>
+      }
+    </tbody>
+  </table>
+</section>
